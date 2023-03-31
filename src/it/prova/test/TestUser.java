@@ -1,6 +1,7 @@
 package it.prova.test;
 
 import java.sql.Connection;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import it.prova.dao.Constants;
 import it.prova.dao.user.UserDAO;
 import it.prova.dao.user.UserDAOImpl;
 import it.prova.model.User;
+
 
 public class TestUser {
 
@@ -26,16 +28,19 @@ public class TestUser {
 
 			System.out.println("In tabella user ci sono " + userDAOInstance.list().size() + " elementi.");
 
-			testInsertUser(userDAOInstance);
-			System.out.println("In tabella user ci sono " + userDAOInstance.list().size() + " elementi.");
-
-			testFindById(userDAOInstance);
-
-			testDeleteUser(userDAOInstance);
-			System.out.println("In tabella user ci sono " + userDAOInstance.list().size() + " elementi.");
-
-			testFindAllWhereDateCreatedGreaterThan(userDAOInstance);
-			System.out.println("In tabella user ci sono " + userDAOInstance.list().size() + " elementi.");
+//			testInsertUser(userDAOInstance);
+//			System.out.println("In tabella user ci sono " + userDAOInstance.list().size() + " elementi.");
+//
+//			testFindById(userDAOInstance);
+//
+//			testDeleteUser(userDAOInstance);
+//			System.out.println("In tabella user ci sono " + userDAOInstance.list().size() + " elementi.");
+//
+//			testFindAllWhereDateCreatedGreaterThan(userDAOInstance);
+//			System.out.println("In tabella user ci sono " + userDAOInstance.list().size() + " elementi.");
+			
+			
+			testFindAllByCognome(userDAOInstance);
 
 			// ESERCIZIO SUCCESSIVO: implementare metodi mancanti nel DAO
 
@@ -123,6 +128,29 @@ public class TestUser {
 		}
 
 		System.out.println(".......testFindAllWhereDateCreatedGreaterThan fine: PASSED.............");
+	}
+	
+	//=======================================================================================================
+	//Test FindAllByCognome
+	
+	private static void testFindAllByCognome(UserDAO userDAOInstance) {
+		System.out.println("######inizio test FindAllByCognome");
+		String cognomeInput = "Rossi";
+		int quantiSonoPresenti = -1;
+		// ##########################################################//
+		System.out.println("############test verifica dati #################");
+
+		try {
+			List<User> presentiSullaBaseDati =  userDAOInstance.findAllByCognome(cognomeInput);
+			quantiSonoPresenti = presentiSullaBaseDati.size();
+			System.out.println("sono attualmente presenti " + quantiSonoPresenti + " records");
+			for (User userItem : presentiSullaBaseDati) {
+				System.out.println(userItem);
+			}
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
 	}
 
 }
