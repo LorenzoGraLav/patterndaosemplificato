@@ -9,8 +9,8 @@ import it.prova.connection.MyConnection;
 import it.prova.dao.Constants;
 import it.prova.dao.user.UserDAO;
 import it.prova.dao.user.UserDAOImpl;
-import it.prova.model.User;
 
+import it.prova.model.User;
 
 public class TestUser {
 
@@ -38,9 +38,16 @@ public class TestUser {
 //
 //			testFindAllWhereDateCreatedGreaterThan(userDAOInstance);
 //			System.out.println("In tabella user ci sono " + userDAOInstance.list().size() + " elementi.");
+
+			// testFindAllByCognome(userDAOInstance);
+
+			// testFindAllByLoginIniziaPer(userDAOInstance);
+
+			//testFindByLoginAndPassword(userDAOInstance);
 			
+			//testFindAllByPasswordisNull(userDAOInstance);
 			
-			testFindAllByCognome(userDAOInstance);
+			//testFindByExample(userDAOInstance);
 
 			// ESERCIZIO SUCCESSIVO: implementare metodi mancanti nel DAO
 
@@ -129,10 +136,10 @@ public class TestUser {
 
 		System.out.println(".......testFindAllWhereDateCreatedGreaterThan fine: PASSED.............");
 	}
-	
-	//=======================================================================================================
-	//Test FindAllByCognome
-	
+
+	// =======================================================================================================
+	// Test FindAllByCognome
+
 	private static void testFindAllByCognome(UserDAO userDAOInstance) {
 		System.out.println("######inizio test FindAllByCognome");
 		String cognomeInput = "Rossi";
@@ -141,7 +148,95 @@ public class TestUser {
 		System.out.println("############test verifica dati #################");
 
 		try {
-			List<User> presentiSullaBaseDati =  userDAOInstance.findAllByCognome(cognomeInput);
+			List<User> presentiSullaBaseDati = userDAOInstance.findAllByCognome(cognomeInput);
+			quantiSonoPresenti = presentiSullaBaseDati.size();
+			System.out.println("sono attualmente presenti " + quantiSonoPresenti + " records");
+			for (User userItem : presentiSullaBaseDati) {
+				System.out.println(userItem);
+			}
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+	}
+
+	// ============================================================================================================
+	// Test FindAllByLoginIniziaPer
+
+	private static void testFindAllByLoginIniziaPer(UserDAO userDAOInstance) throws Exception {
+		String iniziale = "pp";
+		System.out.println("inizio...");
+		int quantiSonoPresenti = -1;
+		// ##########################################################//
+		System.out.println("############test verifica dati #################");
+		List<User> presentiSullaBaseDati = userDAOInstance.findAllByLoginIniziaCon(iniziale);
+		quantiSonoPresenti = presentiSullaBaseDati.size();
+		System.out.println("sono attualmente presenti " + quantiSonoPresenti + " records");
+		for (User userItem : presentiSullaBaseDati) {
+			System.out.println(userItem);
+		}
+	}
+
+	// =================================================================================================================
+	// Test FindByLoginAndPassword
+
+	private static void testFindByLoginAndPassword(UserDAO userDAOInstance) {
+		System.out.println("######inizio test FindByLoginAndPassword");
+		String loginInput = "ppp@example.com";
+		String passwordInput = "password1";
+
+		// ##########################################################//
+		System.out.println("############test verifica dati #################");
+
+		
+		try {
+			User presenteInLista = new User();
+			presenteInLista = userDAOInstance.findByLoginAndPassword(loginInput, passwordInput);
+
+			System.out.println(presenteInLista);
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+	}
+	
+	//===================================================================================================================
+	// Test FindAllByPasswordIsNull
+	
+	
+	private static void testFindAllByPasswordisNull(UserDAO userDAOInstance) {
+		System.out.println("######inizio test FindAllByCognome");
+		String password = "";
+		int quantiSonoPresenti = -1;
+		// ##########################################################//
+		System.out.println("############test verifica dati #################");
+
+		try {
+			List<User> presentiSullaBaseDati = userDAOInstance.findAllByPasswordIsNull();
+			quantiSonoPresenti = presentiSullaBaseDati.size();
+			System.out.println("sono attualmente presenti " + quantiSonoPresenti + " records");
+			for (User userItem : presentiSullaBaseDati) {
+				System.out.println(userItem);
+			}
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+	}
+	
+	
+	//====================================================================================================================
+	// Test FindByExample
+	
+	private static void testFindByExample(UserDAO userDAOInstance) {
+		User example = null;
+		int quantiSonoPresenti = -1;
+		// ##########################################################//
+		System.out.println("############test verifica dati #################");
+
+		try {
+			List<User> presentiSullaBaseDati = userDAOInstance.findByExample(example);
 			quantiSonoPresenti = presentiSullaBaseDati.size();
 			System.out.println("sono attualmente presenti " + quantiSonoPresenti + " records");
 			for (User userItem : presentiSullaBaseDati) {
